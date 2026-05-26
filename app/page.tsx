@@ -236,14 +236,26 @@ export default function Home() {
 
         {!isSearching && !result && (
           <div className="flex flex-col gap-4 sm:gap-5">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
-              <div>
-                <label className="text-[9px] sm:text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Departure</label>
-                <input type="date" value={date} onChange={e => setDate(e.target.value)} className="w-full bg-zinc-950 p-2.5 sm:p-3 rounded-xl border border-zinc-800 text-xs sm:text-sm font-medium mt-1 outline-none focus:border-blue-500 [color-scheme:dark]" />
+            
+            {/* NOVO BLOCO FLEXBOX PARA AS DATAS */}
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full">
+              <div className="flex-1 w-full min-w-0">
+                <label className="text-[9px] sm:text-[10px] font-bold text-zinc-500 uppercase tracking-wider block">Departure</label>
+                <input 
+                  type="date" 
+                  value={date} 
+                  onChange={e => setDate(e.target.value)} 
+                  className="w-full block box-border appearance-none bg-zinc-950 p-2.5 sm:p-3 rounded-xl border border-zinc-800 text-xs sm:text-sm font-medium mt-1 outline-none focus:border-blue-500 [color-scheme:dark]" 
+                />
               </div>
-              <div>
-                <label className="text-[9px] sm:text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Return</label>
-                <input type="date" value={returnDate} onChange={e => setReturnDate(e.target.value)} className="w-full bg-zinc-950 p-2.5 sm:p-3 rounded-xl border border-zinc-800 text-xs sm:text-sm font-medium mt-1 outline-none focus:border-blue-500 [color-scheme:dark]" />
+              <div className="flex-1 w-full min-w-0">
+                <label className="text-[9px] sm:text-[10px] font-bold text-zinc-500 uppercase tracking-wider block">Return</label>
+                <input 
+                  type="date" 
+                  value={returnDate} 
+                  onChange={e => setReturnDate(e.target.value)} 
+                  className="w-full block box-border appearance-none bg-zinc-950 p-2.5 sm:p-3 rounded-xl border border-zinc-800 text-xs sm:text-sm font-medium mt-1 outline-none focus:border-blue-500 [color-scheme:dark]" 
+                />
               </div>
             </div>
 

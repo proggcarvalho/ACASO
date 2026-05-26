@@ -2,15 +2,11 @@ import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const budget = Number(searchParams.get('budget'));
+  const budget = Number(searchParams.get('budget')) || 1000;
   const mood = searchParams.get('mood');
   const passengers = Number(searchParams.get('passengers')) || 1;
   const date = searchParams.get('date');
   const returnDate = searchParams.get('returnDate');
-
-  const apiKey = process.env.RAPIDAPI_KEY;
-
-  if (!apiKey) return NextResponse.json({ success: false, message: 'API Key em falta' });
 
   // Base de dados massiva (Nível Produção)
   const moodMap: Record<string, any[]> = {
@@ -28,7 +24,7 @@ export async function GET(request: Request) {
       { iata: 'FUE', city: 'Fuerteventura', country: 'Espanha', image: 'https://images.unsplash.com/photo-1515238152791-8216bfdf89a7?q=80&w=600&auto=format&fit=crop', hint: 'Quilómetros de praias desertas e dunas intermináveis estão à tua espera.' },
       { iata: 'PMI', city: 'Maiorca', country: 'Espanha', image: 'https://images.unsplash.com/photo-1534351590666-13e3e96b5017?q=80&w=600&auto=format&fit=crop', hint: 'Águas azul-turquesa cristalinas e caletas escondidas nas encostas do Mediterrâneo.' },
       { iata: 'IBZ', city: 'Ibiza', country: 'Espanha', image: 'https://images.unsplash.com/photo-1563298723-dcfebaa392e3?q=80&w=600&auto=format&fit=crop', hint: 'Pores do sol lendários e praias paradisíacas com um ambiente magnético.' },
-      { iata: 'MLA', city: 'Malta', country: 'Malta', image: 'https://images.unsplash.com/photo-1527004013197-933c4bb611b3?q=80&w=600&auto=format&fit=crop', hint: 'Uma ilha fortificada cheia de história, grutas azuis e águas mornas.' },
+      { iata: 'MLA', city: 'Malta', country: 'Malta', image: 'https://images.unsplash.com/photo-1527004013197-933c4bb611b3?q=80&w=600&auto=format&fit=crop', hint: 'Uma island fortificada cheia de história, grutas azuis e águas mornas.' },
       { iata: 'BIQ', city: 'Biarritz', country: 'França', image: 'https://images.unsplash.com/photo-1588102206847-c3dbcebf8238?q=80&w=600&auto=format&fit=crop', hint: 'A capital do surf europeu. Leva a prancha para apanhares tubos épicos e umas esquerdas perfeitas.' },
       { iata: 'ACE', city: 'Lanzarote', country: 'Espanha', image: 'https://images.unsplash.com/photo-1550186985-78e72efcc8dc?q=80&w=600&auto=format&fit=crop', hint: 'Reef breaks incríveis num cenário vulcânico. Ideal para dares uns duck dives em águas cristalinas.' },
       { iata: 'EAS', city: 'San Sebastian', country: 'Espanha', image: 'https://images.unsplash.com/photo-1616086708688-66a93e390c50?q=80&w=600&auto=format&fit=crop', hint: 'Pintxos fantásticos depois de uma grande sessão de ondas na famosa praia de Zurriola.' },
@@ -61,56 +57,58 @@ export async function GET(request: Request) {
   };
 
   const moodOptions = moodMap[mood || 'Cidade'];
-  // Sorteia 1 único destino de forma justa antes de consultar os voos
+  if (!moodOptions) return NextResponse.json({ success: false, message: 'Vibe inválida' }, { status: 400 });
+
   const target = moodOptions[Math.floor(Math.random() * moodOptions.length)];
 
   try {
-    const url = `https://google-flights2.p.rapidapi.com/api/v1/searchFlights?departure_id=LIS&arrival_id=${target.iata}&outbound_date=${date}&return_date=${returnDate}&travel_class=ECONOMY&adults=${passengers}&currency=EUR`;
-    
-    const options = { method: 'GET', headers: { 'x-rapidapi-key': apiKey, 'x-rapidapi-host': 'google-flights2.p.rapidapi.com' } };
-    const response = await fetch(url, options);
+    // Construímos o endpoint para bater na tua API hacker local
+    const scraperUrl = `http://localhost:3001/api/raspar?from=LIS&to=${target.iata}&date=${date}`;
+    console.log("🔗 A consultar o Scraper Próprio:", scraperUrl);
+
+    const response = await fetch(scraperUrl);
     const data = await response.json();
 
-    let realPrice = 0;
-    let airline = 'Várias Companhias';
-    let time = '10:30';
+    if (data.success) {
+      // O scraper devolve o preço por percurso de 1 pessoa. 
+      // Multiplicamos por 2 (Ida e Volta) e pela quantidade de passageiros.
+      const totalPrice = data.price * 2 * passengers;
 
-    if (data?.data?.itineraries?.length > 0) {
-      const flight = data.data.itineraries[0];
-      realPrice = flight.price.raw;
-      airline = flight.legs?.[0]?.carriers?.marketing?.[0]?.name || airline;
-      if (flight.legs?.[0]?.departure) {
-        time = new Date(flight.legs[0].departure).toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' });
-      }
+      const bookingLink = `https://www.google.com/travel/flights?q=Flights%20to%20${target.city}%20from%20LIS%20on%20${date}%20through%20${returnDate}`;
+
+      return NextResponse.json({
+        success: (totalPrice <= budget),
+        flight: {
+          city: target.city, 
+          country: target.country, 
+          image: target.image,
+          totalPrice: totalPrice, 
+          price: totalPrice / passengers,
+          airline: data.airline, 
+          time: data.time, 
+          bookingLink, 
+          hint: target.hint
+        }
+      });
     } else {
-      // Fallback dinâmico com base nos passageiros se a rota estiver sem lugares para o dia exato
-      realPrice = (mood === 'Frio' || mood === 'Cidade' ? 110 : 145) * passengers;
+      throw new Error("O Scraper não conseguiu extrair dados válidos");
     }
 
-    const bookingLink = `https://www.google.com/travel/flights?q=Flights%20to%20${target.city}%20from%20LIS%20on%20${date}%20through%20${returnDate}`;
-
-    return NextResponse.json({
-      success: (realPrice <= budget),
-      flight: {
-        city: target.city, country: target.country, image: target.image,
-        totalPrice: realPrice, price: realPrice / passengers,
-        airline, time, bookingLink, hint: target.hint
-      }
-    });
-
   } catch (error) {
-    console.error("Erro na API:", error);
+    console.error("⚠️ Falha ao contactar o Scraper. Ativar Fallback Dinâmico:", error);
     
-    // Fallback dinâmico: Gera um preço entre 90€ e 250€, e uma hora aleatória para manter o realismo quando a API falha.
+    // Fallback dinâmico para salvaguarda
     const fakePrice = Math.floor(Math.random() * (250 - 90 + 1) + 90) * passengers;
     const fakeHour = Math.floor(Math.random() * (20 - 6 + 1) + 6).toString().padStart(2, '0');
     const fakeMinute = Math.random() > 0.5 ? '30' : '00';
     
+    const bookingLink = `https://www.google.com/travel/flights?q=Flights%20to%20${target.city}%20from%20LIS%20on%20${date}`;
+
     return NextResponse.json({ 
       success: true, 
       flight: { 
         city: target.city, country: target.country, image: target.image, hint: target.hint,
-        totalPrice: fakePrice, price: fakePrice / passengers, airline: 'Acaso Airways', time: `${fakeHour}:${fakeMinute}`, bookingLink: '#' 
+        totalPrice: fakePrice, price: fakePrice / passengers, airline: 'Acaso Airways', time: `${fakeHour}:${fakeMinute}`, bookingLink
       } 
     });
   }

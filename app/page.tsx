@@ -96,15 +96,18 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 relative text-zinc-50">
+    <main className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 relative text-zinc-50 overflow-x-hidden">
+      
+      {/* BACKGROUND */}
       <div className="fixed inset-0 z-0">
         <img src="/acaso_background.jpg" alt="Background" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/70"></div>
       </div>
-      {/* Botão do Passaporte ajustado para telemóvel (mais afastado do topo e menor) */}
+      
+      {/* BOTÃO DO PASSAPORTE */}
       <button 
         onClick={() => setShowPassport(true)}
-        className="absolute top-6 right-4 sm:top-6 sm:right-6 bg-zinc-900 border border-zinc-800 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-bold flex items-center gap-2 hover:bg-zinc-800 transition-colors shadow-lg z-20"
+        className="absolute top-6 right-4 sm:top-6 sm:right-6 bg-zinc-900/50 border border-zinc-800 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-bold flex items-center gap-2 hover:bg-zinc-800 transition-colors shadow-lg z-20 backdrop-blur-md"
       >
         <span>My Passport ({passport.length})</span>
       </button>
@@ -137,16 +140,16 @@ export default function Home() {
         </div>
       )}
 
-      {/* Header com margem superior maior no mobile para fugir do botão */}
-      <div className="text-center max-w-2xl mb-6 sm:mb-8 mt-16 sm:mt-12 px-2">
-        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-2 sm:mb-4 cursor-pointer" onClick={resetSearch}>
+      {/* HEADER - Agora com relative z-10 */}
+      <div className="text-center max-w-2xl mb-6 sm:mb-8 mt-16 sm:mt-12 px-2 relative z-10">
+        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-2 sm:mb-4 cursor-pointer drop-shadow-xl" onClick={resetSearch}>
           ACASO
         </h1>
-        <p className="text-zinc-400 text-xs sm:text-base leading-relaxed">Surprise round-trips using real-time Google Flights prices.</p>
+        <p className="text-zinc-300 text-xs sm:text-base leading-relaxed drop-shadow-md">Surprise round-trips using real-time Google Flights prices.</p>
       </div>
 
-      {/* Cartão principal ajustado nas margens e paddings */}
-      <div className="w-full max-w-md bg-zinc-900 p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-zinc-800 shadow-2xl relative overflow-hidden min-h-[480px] sm:min-h-[550px] flex flex-col justify-center">
+      {/* CARTÃO PRINCIPAL - Com relative z-10 */}
+      <div className="w-full max-w-md bg-zinc-900/95 p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-zinc-800 shadow-2xl relative z-10 overflow-hidden min-h-[480px] sm:min-h-[550px] flex flex-col justify-center backdrop-blur-xl">
         
         {isSearching && (
           <div className="text-center">
@@ -209,7 +212,7 @@ export default function Home() {
             
             <div className="flex justify-between items-center mb-5 sm:mb-6">
               <span className="text-zinc-400 font-medium text-sm sm:text-base">Total Cost:</span>
-              <span className="text-xl sm:text-2xl font-black">{result.totalPrice}€</span>
+              <span className="text-xl sm:text-2xl font-black text-white">{result.totalPrice}€</span>
             </div>
 
             {isRevealed ? (
@@ -240,7 +243,6 @@ export default function Home() {
         {!isSearching && !result && (
           <div className="flex flex-col gap-4 sm:gap-5">
             
-            {/* NOVO BLOCO FLEXBOX PARA AS DATAS */}
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full">
               <div className="flex-1 w-full min-w-0">
                 <label className="text-[9px] sm:text-[10px] font-bold text-zinc-500 uppercase tracking-wider block">Departure</label>
@@ -248,7 +250,7 @@ export default function Home() {
                   type="date" 
                   value={date} 
                   onChange={e => setDate(e.target.value)} 
-                  className="w-full block box-border appearance-none bg-zinc-950 p-2.5 sm:p-3 rounded-xl border border-zinc-800 text-xs sm:text-sm font-medium mt-1 outline-none focus:border-blue-500 [color-scheme:dark]" 
+                  className="w-full block box-border appearance-none bg-zinc-950 text-white p-2.5 sm:p-3 rounded-xl border border-zinc-800 text-xs sm:text-sm font-medium mt-1 outline-none focus:border-blue-500 [color-scheme:dark]" 
                 />
               </div>
               <div className="flex-1 w-full min-w-0">
@@ -257,7 +259,7 @@ export default function Home() {
                   type="date" 
                   value={returnDate} 
                   onChange={e => setReturnDate(e.target.value)} 
-                  className="w-full block box-border appearance-none bg-zinc-950 p-2.5 sm:p-3 rounded-xl border border-zinc-800 text-xs sm:text-sm font-medium mt-1 outline-none focus:border-blue-500 [color-scheme:dark]" 
+                  className="w-full block box-border appearance-none bg-zinc-950 text-white p-2.5 sm:p-3 rounded-xl border border-zinc-800 text-xs sm:text-sm font-medium mt-1 outline-none focus:border-blue-500 [color-scheme:dark]" 
                 />
               </div>
             </div>
@@ -265,16 +267,16 @@ export default function Home() {
             <div className="flex items-center justify-between bg-zinc-950 p-2.5 sm:p-3 rounded-xl border border-zinc-800 mt-1 sm:mt-2">
                <span className="text-[9px] sm:text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Travelers</span>
                <div className="flex items-center gap-3 sm:gap-4">
-                 <button onClick={() => setPassengers(Math.max(1, passengers-1))} className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center bg-zinc-800 rounded-lg hover:bg-zinc-700 text-sm sm:text-lg font-bold">-</button>
-                 <span className="font-bold text-sm">{passengers}</span>
-                 <button onClick={() => setPassengers(passengers+1)} className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center bg-zinc-800 rounded-lg hover:bg-zinc-700 text-sm sm:text-lg font-bold">+</button>
+                 <button onClick={() => setPassengers(Math.max(1, passengers-1))} className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center bg-zinc-800 rounded-lg hover:bg-zinc-700 text-white text-sm sm:text-lg font-bold">-</button>
+                 <span className="font-bold text-white text-sm">{passengers}</span>
+                 <button onClick={() => setPassengers(passengers+1)} className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center bg-zinc-800 rounded-lg hover:bg-zinc-700 text-white text-sm sm:text-lg font-bold">+</button>
                </div>
             </div>
 
             <div className="mt-1 sm:mt-2">
               <div className="flex justify-between mb-2">
                 <span className="text-[9px] sm:text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Max Budget</span>
-                <span className="font-bold text-sm">{budget}€</span>
+                <span className="font-bold text-white text-sm">{budget}€</span>
               </div>
               <input type="range" min="100" max="2000" step="50" value={budget} onChange={e => setBudget(Number(e.target.value))} className="w-full accent-blue-500 cursor-pointer" />
             </div>
@@ -283,7 +285,7 @@ export default function Home() {
               <label className="text-[9px] sm:text-[10px] font-bold text-zinc-500 uppercase tracking-wider mb-2 block">What's your Vibe?</label>
               <div className="grid grid-cols-2 gap-2">
                 {moods.map(m => (
-                  <button key={m} onClick={() => setMood(m)} className={`py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-bold border transition-all ${mood === m ? 'bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-500/30' : 'bg-zinc-950 border-zinc-800 text-zinc-500 hover:border-zinc-700'}`}>{m}</button>
+                  <button key={m} onClick={() => setMood(m)} className={`py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-bold border transition-all ${mood === m ? 'bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-500/30' : 'bg-zinc-950 border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700'}`}>{m}</button>
                 ))}
               </div>
             </div>
@@ -293,7 +295,8 @@ export default function Home() {
         )}
       </div>
       
-      <footer className="mt-8 text-zinc-500 text-[10px] sm:text-xs flex gap-4">
+      {/* RODAPÉ - Agora com relative z-10 */}
+      <footer className="mt-8 text-zinc-500 text-[10px] sm:text-xs flex gap-4 relative z-10">
         <p>© 2026 ACASO - Mystery Trips</p>
         <a href="#" className="hover:text-white transition-colors">Privacy</a>
         <a href="#" className="hover:text-white transition-colors">Contact</a>

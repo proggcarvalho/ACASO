@@ -152,7 +152,7 @@ export default function Home() {
         <p className="text-zinc-300 text-xs sm:text-base leading-relaxed drop-shadow-md">Surprise round-trips using real-time Google Flights prices.</p>
       </div>
 
-      {/* CARTÃO PRINCIPAL (A "Caixa") */}
+      {/* CARTÃO PRINCIPAL (A TUA CAIXA RECUPERADA!) */}
       <div className="w-full max-w-md bg-zinc-900/95 p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-zinc-800 shadow-2xl relative z-10 overflow-hidden min-h-[480px] sm:min-h-[550px] flex flex-col justify-center backdrop-blur-xl">
         
         {isSearching && (

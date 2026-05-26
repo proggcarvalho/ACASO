@@ -121,7 +121,12 @@ export default function Home() {
               ) : (
                 passport.map((p, i) => (
                   <div key={i} className="relative group rounded-xl overflow-hidden aspect-[4/5] border border-zinc-800 cursor-pointer">
-                    <img src={p.image} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt={p.city} />
+                    <img 
+                      src={p.image} 
+                      alt={p.city}
+                      onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=600&auto=format&fit=crop'; }}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-3">
                       <p className="text-[10px] text-zinc-400 uppercase font-bold leading-none">{p.country}</p>
                       <p className="text-sm font-black text-white truncate">{p.city}</p>
@@ -169,7 +174,12 @@ export default function Home() {
             {isRevealed ? (
               <div className="bg-white text-zinc-900 rounded-2xl shadow-2xl overflow-hidden mb-6">
                 <div className="h-32 w-full relative bg-zinc-200">
-                    <img src={result.image} alt={result.city} className="w-full h-full object-cover animate-in fade-in duration-700" />
+                    <img 
+                      src={result.image} 
+                      alt={result.city} 
+                      onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=600&auto=format&fit=crop'; }}
+                      className="w-full h-full object-cover animate-in fade-in duration-700" 
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-black/20"></div>
                 </div>
                 <div className="p-5">

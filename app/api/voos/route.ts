@@ -62,17 +62,17 @@ export async function GET(request: Request) {
   const target = moodOptions[Math.floor(Math.random() * moodOptions.length)];
 
   try {
-    // Construímos o endpoint para bater na tua API hacker local
-    const scraperUrl = `http://localhost:3001/api/raspar?from=LIS&to=${target.iata}&date=${date}`;
-    console.log("🔗 A consultar o Scraper Próprio:", scraperUrl);
+    // Passamos a data de ida e a data de volta (returnDate) para o Scraper
+    const scraperUrl = `http://localhost:3001/api/raspar?from=LIS&to=${target.iata}&date=${date}&returnDate=${returnDate}`;
+    console.log("🔗 A consultar o Scraper Próprio (Ida e Volta):", scraperUrl);
 
     const response = await fetch(scraperUrl);
     const data = await response.json();
 
     if (data.success) {
-      // O scraper devolve o preço por percurso de 1 pessoa. 
-      // Multiplicamos por 2 (Ida e Volta) e pela quantidade de passageiros.
-      const totalPrice = data.price * 2 * passengers;
+      // O scraper devolve o preço total da viagem (Ida+Volta) para 1 pessoa. 
+      // Multiplicamos apenas pela quantidade de passageiros.
+      const totalPrice = data.price * passengers;
 
       const bookingLink = `https://www.google.com/travel/flights?q=Flights%20to%20${target.city}%20from%20LIS%20on%20${date}%20through%20${returnDate}`;
 
@@ -102,7 +102,7 @@ export async function GET(request: Request) {
     const fakeHour = Math.floor(Math.random() * (20 - 6 + 1) + 6).toString().padStart(2, '0');
     const fakeMinute = Math.random() > 0.5 ? '30' : '00';
     
-    const bookingLink = `https://www.google.com/travel/flights?q=Flights%20to%20${target.city}%20from%20LIS%20on%20${date}`;
+    const bookingLink = `https://www.google.com/travel/flights?q=Flights%20to%20${target.city}%20from%20LIS%20on%20${date}%20through%20${returnDate}`;
 
     return NextResponse.json({ 
       success: true, 

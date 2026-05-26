@@ -104,7 +104,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/70"></div>
       </div>
       
-      {/* BOTÃO DO PASSAPORTE */}
+      {/* BOTÃO DO PASSAPORTE NO TOPO DIREITO */}
       <button 
         onClick={() => setShowPassport(true)}
         className="absolute top-6 right-4 sm:top-6 sm:right-6 bg-zinc-900/50 border border-zinc-800 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-bold flex items-center gap-2 hover:bg-zinc-800 transition-colors shadow-lg z-20 backdrop-blur-md"
@@ -140,7 +140,7 @@ export default function Home() {
         </div>
       )}
 
-      {/* HEADER */}
+      {/* HEADER DA PÁGINA COM A FONTE GERASOL */}
       <div className="text-center max-w-2xl mb-6 sm:mb-8 mt-16 sm:mt-12 px-2 relative z-10">
         <h1 
           className="text-6xl sm:text-7xl mb-2 sm:mb-4 cursor-pointer drop-shadow-xl tracking-widest mt-4" 
@@ -152,8 +152,8 @@ export default function Home() {
         <p className="text-zinc-300 text-xs sm:text-base leading-relaxed drop-shadow-md">Surprise round-trips using real-time Google Flights prices.</p>
       </div>
 
-      {/* CARTÃO PRINCIPAL (A TUA CAIXA RECUPERADA!) */}
-      <div className="w-full max-w-md bg-zinc-900/95 p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-zinc-800 shadow-2xl relative z-10 overflow-hidden min-h-[480px] sm:min-h-[550px] flex flex-col justify-center backdrop-blur-xl">
+      {/* CARTÃO PRINCIPAL (A ESTRUTURA QUE TINHA SIDO APAGADA) */}
+      <div className="w-full max-w-md bg-zinc-900/95 p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-zinc-800 shadow-2xl relative z-10 overflow-hidden min-h-[480px] sm:min-h-[550px] flex flex-col justify-center backdrop-blur-xl text-white">
         
         {isSearching && (
           <div className="text-center">
@@ -170,8 +170,8 @@ export default function Home() {
             <h2 className="text-lg sm:text-xl font-bold text-red-400 mb-3 sm:mb-4">No flights available</h2>
             <p className="text-zinc-400 mb-5 sm:mb-6 text-xs sm:text-sm">The budget is too tight for this vibe, or the selected destination is currently expensive.</p>
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
-              <button onClick={handleSearch} className="w-full bg-blue-600 py-3 sm:py-4 rounded-xl font-bold text-xs sm:text-sm">Roll the Dice Again</button>
-              <button onClick={resetSearch} className="w-full bg-zinc-800 py-3 sm:py-4 rounded-xl font-bold text-xs sm:text-sm">Change Filters</button>
+              <button onClick={handleSearch} className="w-full bg-blue-600 py-3 sm:py-4 rounded-xl font-bold text-xs sm:text-sm text-white">Roll the Dice Again</button>
+              <button onClick={resetSearch} className="w-full bg-zinc-800 py-3 sm:py-4 rounded-xl font-bold text-xs sm:text-sm text-white">Change Filters</button>
             </div>
           </div>
         )}
@@ -194,11 +194,11 @@ export default function Home() {
                   <div className="grid grid-cols-2 gap-3 sm:gap-4 border-t border-dashed pt-3 sm:pt-4">
                     <div>
                       <p className="text-[9px] sm:text-[10px] font-bold text-zinc-400 uppercase">Departure</p>
-                      <p className="font-bold text-xs sm:text-sm">{new Date(date).toLocaleDateString('pt-PT')}</p>
+                      <p className="font-bold text-xs sm:text-sm text-zinc-900">{new Date(date).toLocaleDateString('pt-PT')}</p>
                     </div>
                     <div>
                       <p className="text-[9px] sm:text-[10px] font-bold text-zinc-400 uppercase text-right">Return</p>
-                      <p className="font-bold text-xs sm:text-sm text-right">{new Date(returnDate).toLocaleDateString('pt-PT')}</p>
+                      <p className="font-bold text-xs sm:text-sm text-right text-zinc-900">{new Date(returnDate).toLocaleDateString('pt-PT')}</p>
                     </div>
                     <div className="col-span-2 bg-zinc-100 p-2 sm:p-3 rounded-xl flex justify-between items-center border border-zinc-200">
                       <span className="text-[9px] sm:text-[10px] font-bold text-zinc-500 uppercase tracking-wider line-clamp-1 mr-2">Flight by {result.airline}</span>

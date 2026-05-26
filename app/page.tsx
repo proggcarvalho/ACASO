@@ -142,7 +142,11 @@ export default function Home() {
 
       {/* HEADER - Agora com relative z-10 */}
       <div className="text-center max-w-2xl mb-6 sm:mb-8 mt-16 sm:mt-12 px-2 relative z-10">
-        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-2 sm:mb-4 cursor-pointer drop-shadow-xl" onClick={resetSearch}>
+        <h1 
+          className="text-6xl sm:text-7xl mb-2 sm:mb-4 cursor-pointer drop-shadow-xl tracking-widest mt-4" 
+          style={{ fontFamily: "'Gerasol', sans-serif" }} 
+          onClick={resetSearch}
+        >
           ACASO
         </h1>
         <p className="text-zinc-300 text-xs sm:text-base leading-relaxed drop-shadow-md">Surprise round-trips using real-time Google Flights prices.</p>

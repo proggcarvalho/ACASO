@@ -1,1 +1,13 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ADICIONA ISTO: Registar a fonte Gerasol */
+@font-face {
+  font-family: 'Gerasol';
+  src: url('/fonts/GERASOL.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ... resto do teu ficheiro globals.css ... */

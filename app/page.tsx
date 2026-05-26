@@ -96,7 +96,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 relative bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/acaso_background_2.jpg')" }}>
+    <main className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 relative text-zinc-50">
       <div className="fixed inset-0 z-0">
         <img src="/acaso_background.jpg" alt="Background" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/70"></div>

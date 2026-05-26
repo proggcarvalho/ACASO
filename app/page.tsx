@@ -97,7 +97,10 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 relative bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/acaso_background_2.jpg')" }}>
-      <div className="absolute inset-0 bg-black/60 pointer-events-none"></div>
+      <div className="fixed inset-0 z-0">
+        <img src="/acaso_background.jpg" alt="Background" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black/70"></div>
+      </div>
       {/* Botão do Passaporte ajustado para telemóvel (mais afastado do topo e menor) */}
       <button 
         onClick={() => setShowPassport(true)}
@@ -290,7 +293,7 @@ export default function Home() {
         )}
       </div>
       
-      <footer className="mt-8 text-zinc-500 text-[10px] sm:text-xs z-10 flex gap-4">
+      <footer className="mt-8 text-zinc-500 text-[10px] sm:text-xs flex gap-4">
         <p>© 2026 ACASO - Mystery Trips</p>
         <a href="#" className="hover:text-white transition-colors">Privacy</a>
         <a href="#" className="hover:text-white transition-colors">Contact</a>

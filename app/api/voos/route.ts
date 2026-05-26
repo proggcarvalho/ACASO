@@ -63,8 +63,7 @@ export async function GET(request: Request) {
 
   try {
     // Passamos a data de ida e a data de volta (returnDate) para o Scraper
-    const scraperUrl = `http://localhost:3001/api/raspar?from=LIS&to=${target.iata}&date=${date}&returnDate=${returnDate}`;
-    console.log("🔗 A consultar o Scraper Próprio (Ida e Volta):", scraperUrl);
+    const scraperUrl = `https://acaso-scraper.onrender.com/api/raspar?from=LIS&to=${target.iata}&date=${date}&returnDate=${returnDate}`;    console.log("🔗 A consultar o Scraper Próprio (Ida e Volta):", scraperUrl);
 
     const response = await fetch(scraperUrl);
     const data = await response.json();

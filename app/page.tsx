@@ -98,9 +98,9 @@ export default function Home() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 relative text-zinc-50 overflow-x-hidden">
       
-      {/* BACKGROUND */}
+      {/* BACKGROUND FIXO E OVERLAY */}
       <div className="fixed inset-0 z-0">
-        <img src="/acaso_bg.jpg" alt="Background" className="w-full h-full object-cover" />
+        <img src="/acaso_background.jpg" alt="Background" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/70"></div>
       </div>
       
@@ -140,7 +140,7 @@ export default function Home() {
         </div>
       )}
 
-      {/* HEADER - Agora com relative z-10 */}
+      {/* HEADER */}
       <div className="text-center max-w-2xl mb-6 sm:mb-8 mt-16 sm:mt-12 px-2 relative z-10">
         <h1 
           className="text-6xl sm:text-7xl mb-2 sm:mb-4 cursor-pointer drop-shadow-xl tracking-widest mt-4" 
@@ -152,7 +152,7 @@ export default function Home() {
         <p className="text-zinc-300 text-xs sm:text-base leading-relaxed drop-shadow-md">Surprise round-trips using real-time Google Flights prices.</p>
       </div>
 
-      {/* CARTÃO PRINCIPAL - Com relative z-10 */}
+      {/* CARTÃO PRINCIPAL (A "Caixa" que tinha desaparecido!) */}
       <div className="w-full max-w-md bg-zinc-900/95 p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-zinc-800 shadow-2xl relative z-10 overflow-hidden min-h-[480px] sm:min-h-[550px] flex flex-col justify-center backdrop-blur-xl">
         
         {isSearching && (
@@ -299,7 +299,7 @@ export default function Home() {
         )}
       </div>
       
-      {/* RODAPÉ - Agora com relative z-10 */}
+      {/* RODAPÉ */}
       <footer className="mt-8 text-zinc-500 text-[10px] sm:text-xs flex gap-4 relative z-10">
         <p>© 2026 ACASO - Mystery Trips</p>
         <a href="#" className="hover:text-white transition-colors">Privacy</a>

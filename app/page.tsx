@@ -104,7 +104,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/70"></div>
       </div>
       
-      {/* BOTÃO DO PASSAPORTE NO TOPO DIREITO */}
+      {/* BOTÃO DO PASSAPORTE */}
       <button 
         onClick={() => setShowPassport(true)}
         className="absolute top-6 right-4 sm:top-6 sm:right-6 bg-zinc-900/50 border border-zinc-800 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-bold flex items-center gap-2 hover:bg-zinc-800 transition-colors shadow-lg z-20 backdrop-blur-md"
@@ -140,7 +140,7 @@ export default function Home() {
         </div>
       )}
 
-      {/* HEADER DA PÁGINA COM A FONTE GERASOL */}
+      {/* HEADER DA PÁGINA */}
       <div className="text-center max-w-2xl mb-6 sm:mb-8 mt-16 sm:mt-12 px-2 relative z-10">
         <h1 
           className="text-6xl sm:text-7xl mb-2 sm:mb-4 cursor-pointer drop-shadow-xl tracking-widest mt-4" 
@@ -152,7 +152,7 @@ export default function Home() {
         <p className="text-zinc-300 text-xs sm:text-base leading-relaxed drop-shadow-md">Surprise round-trips using real-time Google Flights prices.</p>
       </div>
 
-      {/* CARTÃO PRINCIPAL (A ESTRUTURA QUE TINHA SIDO APAGADA) */}
+      {/* CARTÃO PRINCIPAL */}
       <div className="w-full max-w-md bg-zinc-900/95 p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-zinc-800 shadow-2xl relative z-10 overflow-hidden min-h-[480px] sm:min-h-[550px] flex flex-col justify-center backdrop-blur-xl text-white">
         
         {isSearching && (

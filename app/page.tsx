@@ -100,7 +100,7 @@ export default function Home() {
       
       {/* BACKGROUND FIXO E OVERLAY */}
       <div className="fixed inset-0 z-0">
-        <img src="/acaso_background.jpg" alt="Background" className="w-full h-full object-cover" />
+        <img src="/acaso_bg.jpg" alt="Background" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/70"></div>
       </div>
       

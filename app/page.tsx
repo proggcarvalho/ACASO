@@ -105,7 +105,7 @@ export default function Home() {
         onClick={() => setShowPassport(true)}
         className="absolute top-6 right-6 bg-zinc-900 border border-zinc-800 px-4 py-2 rounded-full text-sm font-bold flex items-center gap-2 hover:bg-zinc-800 transition-colors shadow-lg"
       >
-        <span>存放 Passport ({passport.length})</span>
+        <span>My Passport ({passport.length})</span>
       </button>
 
       {showPassport && (

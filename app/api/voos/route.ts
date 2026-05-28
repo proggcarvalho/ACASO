@@ -75,7 +75,7 @@ export async function GET(request: Request) {
       // Multiplicamos apenas pela quantidade de passageiros.
       const totalPrice = data.price * passengers;
 
-      const bookingLink = `https://www.google.com/travel/flights?q=Flights%20to%20${target.city}%20from%20LIS%20on%20${date}%20through%20${returnDate}`;
+      const bookingLink = `https://www.google.com/travel/flights?q=Flights%20to%20${target.iata}%20from%20LIS%20on%20${date}%20through%20${returnDate}`;
 
       return NextResponse.json({
         success: (totalPrice <= budget),
@@ -103,7 +103,7 @@ export async function GET(request: Request) {
     const fakeHour = Math.floor(Math.random() * (20 - 6 + 1) + 6).toString().padStart(2, '0');
     const fakeMinute = Math.random() > 0.5 ? '30' : '00';
     
-    const bookingLink = `https://www.google.com/travel/flights?q=Flights%20to%20${target.city}%20from%20LIS%20on%20${date}%20through%20${returnDate}`;
+    const bookingLink = `https://www.google.com/travel/flights?q=Flights%20to%20${target.iata}%20from%20LIS%20on%20${date}%20through%20${returnDate}`;
 
     return NextResponse.json({ 
       success: true, 
